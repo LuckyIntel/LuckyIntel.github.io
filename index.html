@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Feeling Lucky</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <h1 id="appear_text">Feeling Lucky?</h1>
+        <a id="appear_yes" class="left appear_link" href="i_feel_lucky.html">Yes.</a>
+        <a id="appear_no" class="right appear_link" href="javascript:history.back();">No.</a>
+        <script defer>
+            var hAppear = document.getElementById("appear_text");
+            var appears = document.getElementsByClassName("appear_link");
+            typewriter(hAppear, 0, 50, () => {
+                for (var i = 0; i < appears.length; i++)
+                {
+                    appears[i].style.visibility = "visible";
+                    typewriter(appears[i], 0, 50);
+                };
+            });
+        </script>
+    </body>
+</html>

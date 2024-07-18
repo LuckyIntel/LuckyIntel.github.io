@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>I'm Feeling Lucky</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <h1 class="center" id="appear_text">About "Lucky"</h1>
+        <p class="appear_p" id="explaination">Hello, dear visitor.Thank's for visiting my portofolio website.I'm a junior programmer that is experienced with the following programming languages:
+        </p>
+        <p href="" class="appear_link">C/C++</p>
+        <p href="" class="appear_link">Javascript</p>
+        <p href="" class="appear_link">Python</p>
+        <p href="" class="appear_link">C#</p>
+        <p href="" class="appear_link">LUA</p>
+        <a href="i_feel_lucky.html" class="appear_link">Click to leave</a>
+        <script>
+            var hAppear = document.getElementById("appear_text");
+            var ps = document.getElementById("explaination");
+            var langLinks = document.getElementsByClassName("appear_link");
+            typewriter(hAppear, 0, 50, () => {
+                ps.style.visibility = "visible"
+                typewriter(ps, 0, 30, () => {
+                    for (var i = 0; i < langLinks.length; i++)
+                    {
+                        langLinks[i].style.visibility = "visible";
+                        typewriter(langLinks[i], 0, 20);
+                    };
+                });
+            });
+        </script>
+    </body>
+</html>
