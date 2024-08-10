@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>LuckyIntel</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                scroll-behavior: smooth;
+            }
+            ::-webkit-scrollbar {
+                width: 0;
+                height: 0;
+            }
+            body {
+                background-color: rgb(52, 52, 52);
+            }
+            button {
+                text-align: center;
+                color: rgb(243, 243, 243);
+                font-size: 30px;
+                left: 50%;
+                -webkit-transform: translate(-50%, 0);
+                transform: translate(-50%, 0);
+                position: relative;
+                background-color: rgb(43, 43, 43);
+                border-radius: 10px;
+                border-style: none;
+            }
+            button:hover {
+                color: rgb(43, 43, 43);
+                background-color: rgb(243, 243, 243);
+            }
+            button::selection {
+                background-color: rgba(0, 0, 0, 0);
+            }
+            ::selection {
+                background-color: rgba(255, 141, 230, 0.5);
+            }
+            .center {
+                text-align: center;
+            }
+            .buttonCenter {
+                align-self: center;
+            }
+            .body {
+                opacity: 0.0;
+                flex: none;
+                background-color: rgba(0, 0, 0, 0);
+                position: relative;
+                -webkit-animation-name: body_animation;
+                -webkit-animation-duration: 1s;
+                -webkit-animation-delay: 50ms;
+                -webkit-animation-direction: normal;
+                -webkit-animation-fill-mode: forwards;
+                -webkit-animation-iteration-count: 1;
+                animation-name: body_animation;
+                animation-duration: 1s;
+                animation-delay: 50ms;
+                animation-direction: normal;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+            }
+            .clock {
+                opacity: 0.0;
+                flex: none;
+                text-align: center;
+                background-color: rgba(204, 201, 233, 0.2);
+                border-radius: 16px;
+                position: relative;
+                -webkit-animation-name: clock_animation;
+                -webkit-animation-duration: 1s;
+                -webkit-animation-delay: 50ms;
+                -webkit-animation-direction: normal;
+                -webkit-animation-fill-mode: forwards;
+                -webkit-animation-iteration-count: 1;
+                animation-name: clock_animation;
+                animation-duration: 1s;
+                animation-delay: 50ms;
+                animation-direction: normal;
+                animation-fill-mode: forwards;
+                animation-iteration-count: 1;
+            }
+            .clockH1 {
+                font-size: 25px;
+            }
+            .enable-lines {
+                white-space: pre-line;
+            }
+            @keyframes body_animation {
+                from {
+                    opacity: 0.0;
+                    transform: translate(0px, -50px);
+                } to {
+                    opacity: 1.0;
+                    transform: translate(0px, 0px)
+                }
+            }
+            @-webkit-keyframes body_animation {
+                from {
+                    opacity: 0.0;
+                    transform: translate(0px, -50px);
+                } to {
+                    opacity: 1.0;
+                    transform: translate(0px, 0px)
+                }
+            }
+            @keyframes clock_animation {
+                from {
+                    opacity: 0.0;
+                    transform: translate(0px, -50px);
+                } to {
+                    opacity: 1.0;
+                    transform: translate(0px, 0px)
+                }
+            }
+            @-webkit-keyframes clock_animation {
+                from {
+                    opacity: 0.0;
+                    transform: translate(0px, -50px);
+                } to {
+                    opacity: 1.0;
+                    transform: translate(0px, 0px)
+                }
+            }
+            h1 {
+                font-size: 27px;
+            }
+            p {
+                font-size: 20px;
+            }
+            h1, p{
+                color: rgb(243, 243, 243);
+                font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        </style>
+        <script src="script.js"></script>
+    </head>
+    <body>
+        <div class="clock">
+            <h1 id="clock" class="clockH1"></h1>
+        </div>
+        <div class="body">
+            <h1 id="greetings" class="center"></h1>
+            <button id="github_b" class="buttonCenter" style="visibility: hidden; display: none;"></button>
+            <button id="explore_b" class="buttonCenter" style="display: block;"></button>
+            <p id="explain_p" class="enable-lines"></p>
+        </div>
+        <script>
+            const clock = document.getElementById("clock");
+            const greetings = document.getElementById("greetings");
+            const github_b = document.getElementById("github_b");
+            const explore_b = document.getElementById("explore_b");
+            const explain_p = document.getElementById("explain_p");
+            const beautify = (clock) => 
+            {
+                if (clock.length < 2)
+                {
+                    return clock = "0" + clock;
+                } else return clock;
+            };
+            const getLocaleClock = () =>
+            {
+                let meridiem, dateNow = new Date();
+                let hours = beautify(String(dateNow.getHours()));
+                let minutes = beautify(String(dateNow.getMinutes()));
+                let seconds = beautify(String(dateNow.getSeconds()));
+                if (Number(hours) < 12) meridiem = language.clock.am; // Ante meridiem
+                else if (Number(hours) > 12)
+                {
+                    hours = String(Number(hours) - 12);
+                    meridiem = language.clock.pm; // Post meridiem
+                };
+                clock.innerHTML = `${hours}:${minutes}:${seconds} ${meridiem}`;
+            };
+            greetings.innerHTML = language.greetings;
+            github_b.innerHTML = language.github_b;
+            explore_b.innerHTML = language.explore_b;
+
+            explore_b.onclick = () => 
+            {
+                explore_b.remove();
+                setTimeout(() => {
+                typeWriter(language.explain_p, explain_p, 10, () => {
+                    github_b.style.visibility = "visible";
+                    github_b.style.display = "block";
+                });
+                }, 950);
+            };
+
+            github_b.onclick = () =>
+            {
+                window.location.href = "https://www.github.com/LuckyIntel";
+            };
+            
+            getLocaleClock();
+            setInterval(getLocaleClock, 1000); // Update every 1 second.
+        </script>
+    </body>
+</html>
